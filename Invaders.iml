@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
   <component name="EclipseModuleManager">
-    <libelement value="file://$USER_HOME$/OneDrive/바탕 화면/invader.jar" />
+    <libelement value="file://$MODULE_DIR$/../../../../../invader.jar" />
     <src_description expected_position="0">
       <src_folder value="file://$MODULE_DIR$/src" expected_position="0" />
     </src_description>
@@ -17,7 +17,7 @@
     <orderEntry type="module-library">
       <library name="invader.jar">
         <CLASSES>
-          <root url="file://$USER_HOME$/OneDrive/바탕 화면/invader.jar" />
+          <root url="file://$MODULE_DIR$/../../../../../invader.jar" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

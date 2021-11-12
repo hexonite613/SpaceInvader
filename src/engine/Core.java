@@ -8,11 +8,7 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import screen.GameScreen;
-import screen.HighScoreScreen;
-import screen.ScoreScreen;
-import screen.Screen;
-import screen.TitleScreen;
+import screen.*;
 
 /**
  * Implements core game logic.
@@ -35,29 +31,83 @@ public final class Core {
 	private static final int EXTRA_LIFE_FRECUENCY = 3;
 	/** Total number of levels. */
 	private static final int NUM_LEVELS = 7;
-	
+
+
+	/**default level*/
 	/** Difficulty settings for level 1. */
-	private static final GameSettings SETTINGS_LEVEL_1 =
+	private static final GameSettings SETTINGS_Default_LEVEL_1 =
 			new GameSettings(5, 4, 60, 2000);
 	/** Difficulty settings for level 2. */
-	private static final GameSettings SETTINGS_LEVEL_2 =
+	private static final GameSettings SETTINGS_Default_LEVEL_2 =
 			new GameSettings(5, 5, 50, 2500);
 	/** Difficulty settings for level 3. */
-	private static final GameSettings SETTINGS_LEVEL_3 =
+	private static final GameSettings SETTINGS_Default_LEVEL_3 =
 			new GameSettings(6, 5, 40, 1500);
 	/** Difficulty settings for level 4. */
-	private static final GameSettings SETTINGS_LEVEL_4 =
+	private static final GameSettings SETTINGS_Default_LEVEL_4 =
 			new GameSettings(6, 6, 30, 1500);
 	/** Difficulty settings for level 5. */
-	private static final GameSettings SETTINGS_LEVEL_5 =
+	private static final GameSettings SETTINGS_Default_LEVEL_5 =
 			new GameSettings(7, 6, 20, 1000);
 	/** Difficulty settings for level 6. */
-	private static final GameSettings SETTINGS_LEVEL_6 =
+	private static final GameSettings SETTINGS_Default_LEVEL_6 =
+			new GameSettings(7, 7, 20, 1500);
+	/** Difficulty settings for level 7. */
+	private static final GameSettings SETTINGS_Default_LEVEL_7 =
+			new GameSettings(8, 7, 20, 1300);
+
+
+	/**Hard level*/
+	/** Difficulty settings for level 1. */
+	private static final GameSettings SETTINGS_Hard_LEVEL_1 =
+			new GameSettings(5, 4, 30, 1500);
+	/** Difficulty settings for level 2. */
+	private static final GameSettings SETTINGS_Hard_LEVEL_2 =
+			new GameSettings(5, 5, 20, 1500);
+	/** Difficulty settings for level 3. */
+	private static final GameSettings SETTINGS_Hard_LEVEL_3 =
+			new GameSettings(6, 5, 15, 1000);
+	/** Difficulty settings for level 4. */
+	private static final GameSettings SETTINGS_Hard_LEVEL_4 =
+			new GameSettings(6, 6, 20, 1500);
+	/** Difficulty settings for level 5. */
+	private static final GameSettings SETTINGS_Hard_LEVEL_5 =
+			new GameSettings(7, 6, 20, 700);
+	/** Difficulty settings for level 6. */
+	private static final GameSettings SETTINGS_Hard_LEVEL_6 =
 			new GameSettings(7, 7, 10, 1000);
 	/** Difficulty settings for level 7. */
-	private static final GameSettings SETTINGS_LEVEL_7 =
+	private static final GameSettings SETTINGS_Hard_LEVEL_7 =
+			new GameSettings(8, 7, 15, 1000);
+
+
+
+	/**Expert level*/
+	/** Difficulty settings for level 1. */
+	private static final GameSettings SETTINGS_Expert_LEVEL_1 =
+			new GameSettings(5, 4, 10, 1000);
+	/** Difficulty settings for level 2. */
+	private static final GameSettings SETTINGS_Expert_LEVEL_2 =
+			new GameSettings(5, 5, 10, 1000);
+	/** Difficulty settings for level 3. */
+	private static final GameSettings SETTINGS_Expert_LEVEL_3 =
+			new GameSettings(6, 5, 10, 700);
+	/** Difficulty settings for level 4. */
+	private static final GameSettings SETTINGS_Expert_LEVEL_4 =
+			new GameSettings(6, 6, 15, 700);
+	/** Difficulty settings for level 5. */
+	private static final GameSettings SETTINGS_Expert_LEVEL_5 =
+			new GameSettings(7, 6, 15, 800);
+	/** Difficulty settings for level 6. */
+	private static final GameSettings SETTINGS_Expert_LEVEL_6 =
+			new GameSettings(7, 7, 10, 700);
+	/** Difficulty settings for level 7. */
+	private static final GameSettings SETTINGS_Expert_LEVEL_7 =
 			new GameSettings(8, 7, 2, 500);
-	
+
+
+
+
 	/** Frame to draw the screen on. */
 	private static Frame frame;
 	/** Screen currently shown. */
@@ -103,19 +153,52 @@ public final class Core {
 		int width = frame.getWidth();
 		int height = frame.getHeight();
 
-		gameSettings = new ArrayList<GameSettings>();
-		gameSettings.add(SETTINGS_LEVEL_1);
-		gameSettings.add(SETTINGS_LEVEL_2);
-		gameSettings.add(SETTINGS_LEVEL_3);
-		gameSettings.add(SETTINGS_LEVEL_4);
-		gameSettings.add(SETTINGS_LEVEL_5);
-		gameSettings.add(SETTINGS_LEVEL_6);
-		gameSettings.add(SETTINGS_LEVEL_7);
-		
-		GameState gameState;
+
+
+
+/**레벨 설정*/
+		/** 기본 level */
+		int settinglevel=1;
+
+		switch (settinglevel) {
+			case 1 :
+				gameSettings = new ArrayList<GameSettings>();
+				gameSettings.add(SETTINGS_Default_LEVEL_1);
+				gameSettings.add(SETTINGS_Default_LEVEL_2);
+				gameSettings.add(SETTINGS_Default_LEVEL_3);
+				gameSettings.add(SETTINGS_Default_LEVEL_4);
+				gameSettings.add(SETTINGS_Default_LEVEL_5);
+				gameSettings.add(SETTINGS_Default_LEVEL_6);
+				gameSettings.add(SETTINGS_Default_LEVEL_7);
+				break;
+			case  2:
+				gameSettings = new ArrayList<GameSettings>();
+				gameSettings.add(SETTINGS_Hard_LEVEL_1);
+				gameSettings.add(SETTINGS_Hard_LEVEL_2);
+				gameSettings.add(SETTINGS_Hard_LEVEL_3);
+				gameSettings.add(SETTINGS_Hard_LEVEL_4);
+				gameSettings.add(SETTINGS_Hard_LEVEL_5);
+				gameSettings.add(SETTINGS_Hard_LEVEL_6);
+				gameSettings.add(SETTINGS_Hard_LEVEL_7);
+				break;
+			case 3 :
+				gameSettings = new ArrayList<GameSettings>();
+				gameSettings.add(SETTINGS_Expert_LEVEL_1);
+				gameSettings.add(SETTINGS_Expert_LEVEL_2);
+				gameSettings.add(SETTINGS_Expert_LEVEL_3);
+				gameSettings.add(SETTINGS_Expert_LEVEL_4);
+				gameSettings.add(SETTINGS_Expert_LEVEL_5);
+				gameSettings.add(SETTINGS_Expert_LEVEL_6);
+				gameSettings.add(SETTINGS_Expert_LEVEL_7);
+				break;
+		}
+
+
+
 
 		int returnCode = 1;
 		do {
+			GameState gameState;
 			gameState = new GameState(1, 0, MAX_LIVES, 0, 0);
 
 			switch (returnCode) {
@@ -172,8 +255,12 @@ public final class Core {
 				returnCode = frame.setScreen(currentScreen);
 				LOGGER.info("Closing high score screen.");
 				break;
-			default:
+			case 4:
+				//Setting
+				currentScreen = new SettingScreen(width, height, FPS);
+				returnCode=frame.setScreen(currentScreen);
 				break;
+
 			}
 
 		} while (returnCode != 0);
