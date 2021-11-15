@@ -113,7 +113,11 @@ public final class Core {
 	/** Screen currently shown. */
 	private static Screen currentScreen;
 	/** Difficulty settings list. */
-	private static List<GameSettings> gameSettings;
+	private static List<GameSettings> gameSettings_Default;
+	/** Difficulty settings list. */
+	private static List<GameSettings> gameSettings_Hard;
+	/** Difficulty settings list. */
+	private static List<GameSettings> gameSettings_Expert;
 	/** Application logger. */
 	private static final Logger LOGGER = Logger.getLogger(Core.class
 			.getSimpleName());
@@ -158,47 +162,40 @@ public final class Core {
 
 /**레벨 설정*/
 		/** 기본 level */
-		int settinglevel=1;
-
-		switch (settinglevel) {
-			case 1 :
-				gameSettings = new ArrayList<GameSettings>();
-				gameSettings.add(SETTINGS_Default_LEVEL_1);
-				gameSettings.add(SETTINGS_Default_LEVEL_2);
-				gameSettings.add(SETTINGS_Default_LEVEL_3);
-				gameSettings.add(SETTINGS_Default_LEVEL_4);
-				gameSettings.add(SETTINGS_Default_LEVEL_5);
-				gameSettings.add(SETTINGS_Default_LEVEL_6);
-				gameSettings.add(SETTINGS_Default_LEVEL_7);
-				break;
-			case  2:
-				gameSettings = new ArrayList<GameSettings>();
-				gameSettings.add(SETTINGS_Hard_LEVEL_1);
-				gameSettings.add(SETTINGS_Hard_LEVEL_2);
-				gameSettings.add(SETTINGS_Hard_LEVEL_3);
-				gameSettings.add(SETTINGS_Hard_LEVEL_4);
-				gameSettings.add(SETTINGS_Hard_LEVEL_5);
-				gameSettings.add(SETTINGS_Hard_LEVEL_6);
-				gameSettings.add(SETTINGS_Hard_LEVEL_7);
-				break;
-			case 3 :
-				gameSettings = new ArrayList<GameSettings>();
-				gameSettings.add(SETTINGS_Expert_LEVEL_1);
-				gameSettings.add(SETTINGS_Expert_LEVEL_2);
-				gameSettings.add(SETTINGS_Expert_LEVEL_3);
-				gameSettings.add(SETTINGS_Expert_LEVEL_4);
-				gameSettings.add(SETTINGS_Expert_LEVEL_5);
-				gameSettings.add(SETTINGS_Expert_LEVEL_6);
-				gameSettings.add(SETTINGS_Expert_LEVEL_7);
-				break;
-		}
 
 
+
+				gameSettings_Default = new ArrayList<GameSettings>();
+				gameSettings_Default.add(SETTINGS_Default_LEVEL_1);
+				gameSettings_Default.add(SETTINGS_Default_LEVEL_2);
+				gameSettings_Default.add(SETTINGS_Default_LEVEL_3);
+				gameSettings_Default.add(SETTINGS_Default_LEVEL_4);
+				gameSettings_Default.add(SETTINGS_Default_LEVEL_5);
+				gameSettings_Default.add(SETTINGS_Default_LEVEL_6);
+				gameSettings_Default.add(SETTINGS_Default_LEVEL_7);
+
+				gameSettings_Hard = new ArrayList<GameSettings>();
+				gameSettings_Hard.add(SETTINGS_Hard_LEVEL_1);
+				gameSettings_Hard.add(SETTINGS_Hard_LEVEL_2);
+				gameSettings_Hard.add(SETTINGS_Hard_LEVEL_3);
+				gameSettings_Hard.add(SETTINGS_Hard_LEVEL_4);
+				gameSettings_Hard.add(SETTINGS_Hard_LEVEL_5);
+				gameSettings_Hard.add(SETTINGS_Hard_LEVEL_6);
+				gameSettings_Hard.add(SETTINGS_Hard_LEVEL_7);
+
+				gameSettings_Expert = new ArrayList<GameSettings>();
+				gameSettings_Expert.add(SETTINGS_Expert_LEVEL_1);
+				gameSettings_Expert.add(SETTINGS_Expert_LEVEL_2);
+				gameSettings_Expert.add(SETTINGS_Expert_LEVEL_3);
+				gameSettings_Expert.add(SETTINGS_Expert_LEVEL_4);
+				gameSettings_Expert.add(SETTINGS_Expert_LEVEL_5);
+				gameSettings_Expert.add(SETTINGS_Expert_LEVEL_6);
+				gameSettings_Expert.add(SETTINGS_Expert_LEVEL_7);
+		GameState gameState;
 
 
 		int returnCode = 1;
 		do {
-			GameState gameState;
 			gameState = new GameState(1, 0, MAX_LIVES, 0, 0);
 
 			switch (returnCode) {
@@ -219,7 +216,7 @@ public final class Core {
 							&& gameState.getLivesRemaining() < MAX_LIVES;
 					
 					currentScreen = new GameScreen(gameState,
-							gameSettings.get(gameState.getLevel() - 1),
+							gameSettings_Default.get(gameState.getLevel() - 1),
 							bonusLife, width, height, FPS);
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 							+ " game screen at " + FPS + " fps.");
@@ -259,6 +256,18 @@ public final class Core {
 				//Setting
 				currentScreen = new SettingScreen(width, height, FPS);
 				returnCode=frame.setScreen(currentScreen);
+				if(currentScreen.updatelevel()==1){
+					gameSettings_Default=gameSettings_Default;
+					LOGGER.info("level to Default");
+				}
+				if(currentScreen.updatelevel()==2){
+					gameSettings_Default=gameSettings_Hard;
+					LOGGER.info("level to Hard");
+				}
+				if(currentScreen.updatelevel()==3){
+					gameSettings_Default=gameSettings_Expert;
+					LOGGER.info("level to Expert");
+			}
 				break;
 
 			}

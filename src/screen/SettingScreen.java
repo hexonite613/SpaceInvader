@@ -2,8 +2,15 @@ package screen;
 
 import engine.Cooldown;
 import engine.Core;
+import engine.GameState;
+import engine.Score;
+
 
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+
 
 public class SettingScreen extends Screen{
 
@@ -49,8 +56,9 @@ public class SettingScreen extends Screen{
                 nextMenuItem();
                 this.selectionCooldown.reset();
             }
-            if (inputManager.isKeyDown(KeyEvent.VK_ESCAPE))
-                this.isRunning=false;
+            if (inputManager.isKeyDown(KeyEvent.VK_ESCAPE)||inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
+                this.isRunning = false;
+            }
         }
     }
 
@@ -70,10 +78,9 @@ public class SettingScreen extends Screen{
             settingCode--;
     }
 
-    /**여기에서 settingcode에 따라 값 배정*/
-    public int updatesetting(){
-        return 0;
-    }
+
+
+
 
 
     private void draw(){
@@ -88,5 +95,15 @@ public class SettingScreen extends Screen{
         /**다 그렸다고 업데이트*/
         drawManager.completeDrawing(this);
     }
+
+    /**여기에서 settingcode에 따라 값 배정*/
+
+
+    @Override
+    public int updatelevel(){
+        return this.settingCode;
+    }
+
+
 }
 

@@ -46,6 +46,7 @@ public class Screen {
 	/** 세팅 코드*/
 	protected int settingCode;
 
+
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 * 
@@ -125,4 +126,9 @@ public class Screen {
 	public final int getHeight() {
 		return this.height;
 	}
+
+	public int updatelevel(){
+		return settingCode;
+	}
 }
+
