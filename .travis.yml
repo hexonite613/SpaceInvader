@@ -4,5 +4,5 @@ language: java
 jobs: 
   include: 
     - 
-      script: ./Test
+      script: ./Test/BulletTest
       stage: test
