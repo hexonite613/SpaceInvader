@@ -3,4 +3,3 @@ branches:
   only: 
     - master
 language: java
-script: "make test"
