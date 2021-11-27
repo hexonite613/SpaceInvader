@@ -1,3 +1,5 @@
+--- 
+jdk: "-openjdk8"
 language: java
-jdk:
- - openjdk8
+notification: sungtv2613@naver.com
+script: "./mvnw clean install"
