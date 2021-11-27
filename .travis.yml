@@ -4,5 +4,5 @@ language: java
 jobs: 
   include: 
     - 
-      script: ./Test/BulletTest.java
+      script: sudo ./Test/BulletTest.java
       stage: test
