@@ -1,3 +1,5 @@
 --- 
+before_install: 
+  - "cd java"
 jdk: "-openjdk15"
 language: java
