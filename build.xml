@@ -51,23 +51,88 @@
     <exclude name="**/?*.clj"/>
     <exclude name="**/?*.aj"/>
   </patternset>
-  <!-- Register Custom Compiler Taskdefs -->
-  <property name="javac2.home" value="${idea.home}/lib"/>
-  <path id="javac2.classpath">
-    <fileset dir="${javac2.home}">
-      <include name="jdom.jar"/>
-      <include name="asm-all*.jar"/>
-      <include name="forms-*.jar"/>
-      <include name="forms_rt.jar"/>
-    </fileset>
-    <fileset dir="${idea.home}/plugins/java/lib">
-      <include name="javac2.jar"/>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.15" value="${jdk.home.15}/bin"/>
+  <path id="jdk.classpath.15">
+    <fileset dir="${jdk.home.15}">
+      <include name="../jdk-15!/java.base"/>
+      <include name="../jdk-15!/java.compiler"/>
+      <include name="../jdk-15!/java.datatransfer"/>
+      <include name="../jdk-15!/java.desktop"/>
+      <include name="../jdk-15!/java.instrument"/>
+      <include name="../jdk-15!/java.logging"/>
+      <include name="../jdk-15!/java.management"/>
+      <include name="../jdk-15!/java.management.rmi"/>
+      <include name="../jdk-15!/java.naming"/>
+      <include name="../jdk-15!/java.net.http"/>
+      <include name="../jdk-15!/java.prefs"/>
+      <include name="../jdk-15!/java.rmi"/>
+      <include name="../jdk-15!/java.scripting"/>
+      <include name="../jdk-15!/java.se"/>
+      <include name="../jdk-15!/java.security.jgss"/>
+      <include name="../jdk-15!/java.security.sasl"/>
+      <include name="../jdk-15!/java.smartcardio"/>
+      <include name="../jdk-15!/java.sql"/>
+      <include name="../jdk-15!/java.sql.rowset"/>
+      <include name="../jdk-15!/java.transaction.xa"/>
+      <include name="../jdk-15!/java.xml"/>
+      <include name="../jdk-15!/java.xml.crypto"/>
+      <include name="../jdk-15!/jdk.accessibility"/>
+      <include name="../jdk-15!/jdk.aot"/>
+      <include name="../jdk-15!/jdk.attach"/>
+      <include name="../jdk-15!/jdk.charsets"/>
+      <include name="../jdk-15!/jdk.compiler"/>
+      <include name="../jdk-15!/jdk.crypto.cryptoki"/>
+      <include name="../jdk-15!/jdk.crypto.ec"/>
+      <include name="../jdk-15!/jdk.crypto.mscapi"/>
+      <include name="../jdk-15!/jdk.dynalink"/>
+      <include name="../jdk-15!/jdk.editpad"/>
+      <include name="../jdk-15!/jdk.hotspot.agent"/>
+      <include name="../jdk-15!/jdk.httpserver"/>
+      <include name="../jdk-15!/jdk.incubator.foreign"/>
+      <include name="../jdk-15!/jdk.incubator.jpackage"/>
+      <include name="../jdk-15!/jdk.internal.ed"/>
+      <include name="../jdk-15!/jdk.internal.jvmstat"/>
+      <include name="../jdk-15!/jdk.internal.le"/>
+      <include name="../jdk-15!/jdk.internal.opt"/>
+      <include name="../jdk-15!/jdk.internal.vm.ci"/>
+      <include name="../jdk-15!/jdk.internal.vm.compiler"/>
+      <include name="../jdk-15!/jdk.internal.vm.compiler.management"/>
+      <include name="../jdk-15!/jdk.jartool"/>
+      <include name="../jdk-15!/jdk.javadoc"/>
+      <include name="../jdk-15!/jdk.jcmd"/>
+      <include name="../jdk-15!/jdk.jconsole"/>
+      <include name="../jdk-15!/jdk.jdeps"/>
+      <include name="../jdk-15!/jdk.jdi"/>
+      <include name="../jdk-15!/jdk.jdwp.agent"/>
+      <include name="../jdk-15!/jdk.jfr"/>
+      <include name="../jdk-15!/jdk.jlink"/>
+      <include name="../jdk-15!/jdk.jshell"/>
+      <include name="../jdk-15!/jdk.jsobject"/>
+      <include name="../jdk-15!/jdk.jstatd"/>
+      <include name="../jdk-15!/jdk.localedata"/>
+      <include name="../jdk-15!/jdk.management"/>
+      <include name="../jdk-15!/jdk.management.agent"/>
+      <include name="../jdk-15!/jdk.management.jfr"/>
+      <include name="../jdk-15!/jdk.naming.dns"/>
+      <include name="../jdk-15!/jdk.naming.rmi"/>
+      <include name="../jdk-15!/jdk.net"/>
+      <include name="../jdk-15!/jdk.nio.mapmode"/>
+      <include name="../jdk-15!/jdk.sctp"/>
+      <include name="../jdk-15!/jdk.security.auth"/>
+      <include name="../jdk-15!/jdk.security.jgss"/>
+      <include name="../jdk-15!/jdk.unsupported"/>
+      <include name="../jdk-15!/jdk.unsupported.desktop"/>
+      <include name="../jdk-15!/jdk.xml.dom"/>
+      <include name="../jdk-15!/jdk.zipfs"/>
     </fileset>
   </path>
-  <target name="register.custom.compilers">
-    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
-    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
-  </target>
+  
+  <property name="project.jdk.home" value="${jdk.home.15}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.15}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.15"/>
   
   <!-- Modules -->
   
@@ -77,6 +142,9 @@
   <dirname property="module.invaders.basedir" file="${ant.file}"/>
   
   
+  <property name="module.jdk.home.invaders" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.invaders" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.invaders" value="${project.jdk.classpath}"/>
   
   <property name="compiler.args.invaders" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
   
@@ -88,22 +156,56 @@
   </path>
   
   <path id="invaders.module.production.classpath">
+    <path refid="${module.jdk.classpath.invaders}"/>
     <pathelement location="${basedir}/../../../../../invader.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-api/5.7.0/junit-jupiter-api-5.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-engine/5.7.0/junit-jupiter-engine-5.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-params/5.7.0/junit-jupiter-params-5.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter/5.7.0/junit-jupiter-5.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/platform/junit-platform-commons/1.7.0/junit-platform-commons-1.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/platform/junit-platform-engine/1.7.0/junit-platform-engine-1.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar"/>
   </path>
   
   <path id="invaders.runtime.production.module.classpath">
     <pathelement location="${invaders.output.dir}"/>
     <pathelement location="${basedir}/../../../../../invader.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-api/5.7.0/junit-jupiter-api-5.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-engine/5.7.0/junit-jupiter-engine-5.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-params/5.7.0/junit-jupiter-params-5.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter/5.7.0/junit-jupiter-5.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/platform/junit-platform-commons/1.7.0/junit-platform-commons-1.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/platform/junit-platform-engine/1.7.0/junit-platform-engine-1.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar"/>
   </path>
   
   <path id="invaders.module.classpath">
     <pathelement location="${invaders.output.dir}"/>
+    <path refid="${module.jdk.classpath.invaders}"/>
     <pathelement location="${basedir}/../../../../../invader.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-api/5.7.0/junit-jupiter-api-5.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-engine/5.7.0/junit-jupiter-engine-5.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-params/5.7.0/junit-jupiter-params-5.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter/5.7.0/junit-jupiter-5.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/platform/junit-platform-commons/1.7.0/junit-platform-commons-1.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/platform/junit-platform-engine/1.7.0/junit-platform-engine-1.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar"/>
   </path>
   
   <path id="invaders.runtime.module.classpath">
     <pathelement location="${invaders.output.dir}"/>
     <pathelement location="${basedir}/../../../../../invader.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-api/5.7.0/junit-jupiter-api-5.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-engine/5.7.0/junit-jupiter-engine-5.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-params/5.7.0/junit-jupiter-params-5.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter/5.7.0/junit-jupiter-5.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/platform/junit-platform-commons/1.7.0/junit-platform-commons-1.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/platform/junit-platform-engine/1.7.0/junit-platform-engine-1.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar"/>
   </path>
   
   
@@ -121,18 +223,24 @@
     </dirset>
   </path>
   
+  <path id="invaders.module.test.sourcepath">
+    <dirset dir="${module.invaders.basedir}">
+      <include name="Test"/>
+    </dirset>
+  </path>
+  
   
   <target name="compile.module.invaders" depends="compile.module.invaders.production,compile.module.invaders.tests" description="Compile module Invaders"/>
   
-  <target name="compile.module.invaders.production" depends="register.custom.compilers" description="Compile module Invaders; production classes">
+  <target name="compile.module.invaders.production" description="Compile module Invaders; production classes">
     <mkdir dir="${invaders.output.dir}"/>
-    <javac2 destdir="${invaders.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+    <javac destdir="${invaders.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.invaders}/javac">
       <compilerarg line="${compiler.args.invaders}"/>
       <bootclasspath refid="invaders.module.bootclasspath"/>
       <classpath refid="invaders.module.production.classpath"/>
       <src refid="invaders.module.sourcepath"/>
       <patternset refid="excluded.from.compilation.invaders"/>
-    </javac2>
+    </javac>
     
     <copy todir="${invaders.output.dir}">
       <fileset dir="${module.invaders.basedir}/src">
@@ -142,7 +250,23 @@
     </copy>
   </target>
   
-  <target name="compile.module.invaders.tests" depends="register.custom.compilers,compile.module.invaders.production" description="compile module Invaders; test classes" unless="skip.tests"/>
+  <target name="compile.module.invaders.tests" depends="compile.module.invaders.production" description="compile module Invaders; test classes" unless="skip.tests">
+    <mkdir dir="${invaders.testoutput.dir}"/>
+    <javac destdir="${invaders.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.invaders}/javac">
+      <compilerarg line="${compiler.args.invaders}"/>
+      <bootclasspath refid="invaders.module.bootclasspath"/>
+      <classpath refid="invaders.module.classpath"/>
+      <src refid="invaders.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.invaders"/>
+    </javac>
+    
+    <copy todir="${invaders.testoutput.dir}">
+      <fileset dir="${module.invaders.basedir}/Test">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
   
   <target name="clean.module.invaders" description="cleanup module">
     <delete dir="${invaders.output.dir}"/>
