@@ -1,5 +1,9 @@
---- 
-before_install: 
-  - "cd java"
-jdk: "-openjdk15"
 language: java
+jdk:
+  - 15
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.gradle'
+script: "./gradlew clean build"
