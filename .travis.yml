@@ -1,8 +1,6 @@
 --- 
-jdk: "-openjdk15"
+branches: 
+  only: 
+    - master
 language: java
-jobs: 
-  include: 
-    - 
-      script: sudo ./Test/BulletTest.java
-      stage: test
+script: "make test"
