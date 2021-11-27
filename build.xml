@@ -242,7 +242,7 @@
   
   <path id="invaders.module.test.sourcepath">
     <dirset dir="${module.invaders.basedir}">
-      <include name="test"/>
+      <include name="Test"/>
     </dirset>
   </path>
   
@@ -278,7 +278,7 @@
     </javac2>
     
     <copy todir="${invaders.testoutput.dir}">
-      <fileset dir="${module.invaders.basedir}/test">
+      <fileset dir="${module.invaders.basedir}/Test">
         <patternset refid="compiler.resources"/>
         <type type="file"/>
       </fileset>
