@@ -4,8 +4,9 @@
   
   <property file="build.properties"/>
   <!-- Uncomment the following property if no tests compilation is needed -->
-
+  <!-- 
   <property name="skip.tests" value="true"/>
+   -->
   
   <!-- Compiler options -->
   
@@ -241,7 +242,7 @@
   
   <path id="invaders.module.test.sourcepath">
     <dirset dir="${module.invaders.basedir}">
-      <include name="Test"/>
+      <include name="Tests"/>
     </dirset>
   </path>
   
@@ -277,7 +278,7 @@
     </javac2>
     
     <copy todir="${invaders.testoutput.dir}">
-      <fileset dir="${module.invaders.basedir}/Test">
+      <fileset dir="${module.invaders.basedir}/Tests">
         <patternset refid="compiler.resources"/>
         <type type="file"/>
       </fileset>
