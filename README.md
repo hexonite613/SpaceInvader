@@ -1,4 +1,4 @@
-Invaders  https://app.travis-ci.com/hexonite613/SpaceInvader.svg?branch=master
+Invaders  [![Build Status](https://app.travis-ci.com/hexonite613/SpaceInvader.svg?branch=master)](https://app.travis-ci.com/hexonite613/SpaceInvader)
 =
 [Space Invaders](http://en.wikipedia.org/wiki/Space_Invaders) clone, written in Java.
 
