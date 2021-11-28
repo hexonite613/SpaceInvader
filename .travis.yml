@@ -3,3 +3,7 @@ branches:
   only: 
     - master
 language: java
+jobs:
+  include:
+    - stage: test
+      script: ./Tests
