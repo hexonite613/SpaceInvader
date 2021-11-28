@@ -3,3 +3,4 @@ branches:
   only: 
     - master
 language: java
+install: ant deps
