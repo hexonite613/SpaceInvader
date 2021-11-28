@@ -1,9 +1,12 @@
---- 
-branches: 
-  only: 
-    - master
 language: java
-jobs:
-  include:
-    - stage: test
-      script: ./Tests
+
+branches:
+  only:
+    - develop
+
+script: ant build
+
+addons:
+  apt:
+    packages:
+      ant
