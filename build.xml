@@ -171,6 +171,49 @@
   <path id="invaders.module.bootclasspath">
     <!-- Paths to be included in compilation bootclasspath -->
   </path>
+
+  <target name="tests" depends="build" description="Run tests">
+
+    <delete dir="${testbuild.dir}" />
+    <mkdir dir="${testbuild.dir}" />
+    <delete dir="${testreports.dir}" />
+    <mkdir dir="${testreports.dir}" />
+
+    <javac srcdir="${testsrc.dir}"
+           destdir="${testbuild.dir}"
+           debug="true"
+           encoding="UTF-8"
+           deprecation="true">
+      <classpath path="${build.dir}" />
+      <classpath refid="master-classpath" />
+      <classpath refid="test-classpath" />
+    </javac>
+
+    <copy todir="${testbuild.dir}" preservelastmodified="true">
+      <fileset dir="${build.dir}" includes="**/*" />
+      <fileset dir="${testresource.dir}" includes="**/*" />
+    </copy>
+
+    <junit forkmode="perBatch"
+           printsummary="true"
+           haltonfailure="yes"
+           haltonerror="yes">
+      <classpath refid="master-classpath" />
+      <classpath refid="test-classpath" />
+      <classpath path="${testbuild.dir}" />
+      <sysproperty key="ant.home" value="${ant.home}" />
+
+      <formatter type="xml" />
+
+      <batchtest fork="yes" todir="${testreports.dir}">
+        <fileset dir="${testbuild.dir}">
+          <include name="**/*Test.class" />
+          <exclude name="**/Abstract*Test.class" />
+        </fileset>
+      </batchtest>
+    </junit>
+
+  </target>
   
   <path id="invaders.module.production.classpath">
     <path refid="${module.jdk.classpath.invaders}"/>
